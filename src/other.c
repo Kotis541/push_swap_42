@@ -32,8 +32,11 @@ void	add_to_stack(t_stack *stack,long num)
 	t_node	*new_node;
 
 	new_node = malloc(sizeof(t_node));
-	// if (!new_node)
-	// 	error_exit(); // pridat free
+	if (!new_node)
+	{
+		write(1, "Error\n", 6);
+		exit(1);
+	}
 	new_node->value = num;
 	new_node->next = stack->top;
 	stack->top = new_node;
@@ -124,45 +127,5 @@ int is_ordered(t_stack *stack_a)
 		tmp = tmp->next;
 	}
 	return (1);
-}
-
-int main(int argc, char *argv[])
-{
-	t_stack stack_a;
-	t_stack	stack_b;
-	// t_node	*c;
-	// t_node	*b;
-	// t_node	*d;
-
-	// c = malloc(sizeof(t_node));
-	// b = malloc(sizeof(t_node));
-	// d = malloc(sizeof(t_node));
-
-	// c->value = 2;
-	// c->next = b;
-	// b->value = 1;
-	// b->next = NULL;
-
-	stack_a.top = NULL;
-	stack_a.size = 0;
-
-	stack_b.top = NULL;
-	stack_b.size = 0;
-	validate_and_parse(argc, argv, &stack_a);
-	if (!is_ordered(&stack_a) && stack_a.size == 2)
-		sort_two(&stack_a);
-	else if (!is_ordered(&stack_a) && stack_a.size == 3)
-		sort_three(&stack_a);
-	else if (!is_ordered(&stack_a) && stack_a.size == 4)
-		sort_four(&stack_a, &stack_b);
-	else if(!is_ordered(&stack_a) && stack_a.size == 5)
-		sort_five(&stack_a, &stack_b);
-
-	printf("%d\n", stack_a.top->value);
-	printf("%d\n", stack_a.top->next->value);
-	printf("%d\n", stack_a.top->next->next->value);
-	printf("%d\n", stack_a.top->next->next->next->value);
-	printf("%d\n", stack_a.top->next->next->next->next->value);
-	return 0;
 }
 
