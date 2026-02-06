@@ -1,0 +1,8 @@
+*/main.c
+**/main.c
+*.o
+*.a
+*.exe
+a.out
+program
+.vscode/

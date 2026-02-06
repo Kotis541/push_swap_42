@@ -1,40 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   other.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vokotera <vokotera@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/05 13:37:39 by vokotera          #+#    #+#             */
+/*   Updated: 2026/02/06 11:11:28 by vokotera         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../push_swap.h"
 #include <limits.h>
 
-void	validate_and_parse(int argc, char *argv[], t_stack *stack_a)
-{
-	int a;
-	long num;
-	
-	a = argc - 1;
-	check_duplicates(argc, argv);
-	while (a >= 1)
-	{
-		if (!is_valid_number(argv[a]))
-		{
-			write(1, "Error\n", 6);
-			exit(1);
-		}
-		num = ft_atol(argv[a]); 
-		if (num > INT_MAX || num < INT_MIN)
-		{
-			write(1, "Error\n", 6);
-			exit(1);
-		}
-		add_to_stack(stack_a, num);
-		a--;
-	}
-}
-
-
-void	add_to_stack(t_stack *stack,long num)
+void	add_to_stack(t_stack *stack, long num)
 {
 	t_node	*new_node;
 
 	new_node = malloc(sizeof(t_node));
 	if (!new_node)
 	{
-		write(1, "Error\n", 6);
+		write(2, "Error\n", 6);
 		exit(1);
 	}
 	new_node->value = num;
@@ -45,7 +31,7 @@ void	add_to_stack(t_stack *stack,long num)
 
 int	is_valid_number(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i] == ' ')
@@ -57,15 +43,15 @@ int	is_valid_number(char *str)
 	while (str[i])
 	{
 		{
-        if (!((str[i] >= '0' && str[i] <= '9') || str[i] == ' '))
-            return (0);
-    	}
+			if (!(str[i] >= '0' && str[i] <= '9'))
+				return (0);
+		}
 		i++;
 	}
 	return (1);
 }
 
-long ft_atol(const char *nptr)
+long	ft_atol(const char *nptr)
 {
 	size_t		i;
 	long long	result;
@@ -90,10 +76,10 @@ long ft_atol(const char *nptr)
 	return (result * sign);
 }
 
-void check_duplicates(int argc, char *argv[])
+void	check_duplicates(int argc, char *argv[])
 {
-	int a;
-	int b;
+	int	a;
+	int	b;
 
 	a = 1;
 	b = 0;
@@ -104,7 +90,7 @@ void check_duplicates(int argc, char *argv[])
 		{
 			if (ft_atol(argv[a]) == ft_atol(argv[b]))
 			{
-				write(1, "Error\n", 6);
+				write(2, "Error\n", 6);
 				exit(1);
 			}
 			b++;
@@ -112,20 +98,3 @@ void check_duplicates(int argc, char *argv[])
 		a++;
 	}
 }
-
-int is_ordered(t_stack *stack_a)
-{
-	t_node *tmp;
-
-	tmp = stack_a->top;
-	if (!tmp)
-		return (1);
-	while (tmp->next)
-	{
-		if (tmp->value > tmp->next->value)
-			return (0);
-		tmp = tmp->next;
-	}
-	return (1);
-}
-

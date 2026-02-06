@@ -1,18 +1,31 @@
-#include "../push_swap.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sort_b.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vokotera <vokotera@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/05 13:48:31 by vokotera          #+#    #+#             */
+/*   Updated: 2026/02/05 13:48:31 by vokotera         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../push_swap.h"
 
 void	sb(t_stack *b)
 {
-    int	tmp;
+	int	tmp;
 
-    tmp = b->top->value;
-    b->top->value = b->top->next->value;
-    b->top->next->value = tmp;
-    write(1, "sb\n", 3);
+	tmp = b->top->value;
+	b->top->value = b->top->next->value;
+	b->top->next->value = tmp;
+	write(1, "sb\n", 3);
 }
 
 void	pb(t_stack *a, t_stack *b)
 {
 	t_node	*tmp;
+
 	if (a->size == 0)
 		return ;
 	tmp = a->top;
@@ -32,7 +45,7 @@ void	rb(t_stack *b)
 	first = b->top;
 	tmp = b->top;
 	if (b->size < 2)
-		return;
+		return ;
 	b->top = b->top->next;
 	while (tmp->next)
 		tmp = tmp->next;

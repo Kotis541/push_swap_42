@@ -1,4 +1,16 @@
-#include "../push_swap.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   turk.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vokotera <vokotera@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/05 13:36:56 by vokotera          #+#    #+#             */
+/*   Updated: 2026/02/05 13:36:56 by vokotera         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../push_swap.h"
 
 static void	execute_move(t_stack *a, t_stack *b, int cost_a, int cost_b)
 {
@@ -17,26 +29,22 @@ static void	final_rotate(t_stack *a)
 	if (min_pos <= a->size / 2)
 	{
 		i = min_pos;
-		while (i--);
-		{
+		while (i--)
 			ra(a);
-		}
 	}
-	else 
+	else
 	{
 		i = a->size - min_pos;
 		while (i--)
-		{
 			rra(a);
-		}
 	}
 }
 
-static void	find_cheapest_move(t_stack *a, t_stack *b,  t_node **best, int *best_a, int *best_b)
+static t_move	find_cheapest_move(t_stack *a, t_stack *b)
 {
-	t_node *tmp;
-	int		cost_a;
-	int		cost_b;
+	t_node	*tmp;
+	t_cost	cost;
+	t_move	best_move;
 	int		min_cost;
 	int		current;
 
@@ -44,24 +52,22 @@ static void	find_cheapest_move(t_stack *a, t_stack *b,  t_node **best, int *best
 	min_cost = INT_MAX;
 	while (tmp)
 	{
-		calculate_cost(tmp, a, b, &cost_a, &cost_b);
-		current = combined_cost(cost_a, cost_b);
+		cost = calculate_cost(tmp, a, b);
+		current = combined_cost(cost.cost_a, cost.cost_b);
 		if (current < min_cost)
 		{
 			min_cost = current;
-			*best = tmp;
-			*best_a = cost_a;
-			*best_b = cost_b;
+			best_move.cost_a = cost.cost_a;
+			best_move.cost_b = cost.cost_b;
 		}
 		tmp = tmp->next;
 	}
+	return (best_move);
 }
 
-void	turk_sort(t_stack *a,  t_stack *b)
+void	turk_sort(t_stack *a, t_stack *b)
 {
-	t_node	*best;
-	int		cost_a;
-	int		cost_b;
+	t_move	move;
 
 	if (is_ordered(a))
 		return ;
@@ -70,8 +76,8 @@ void	turk_sort(t_stack *a,  t_stack *b)
 	sort_three(a);
 	while (b->size)
 	{
-		find_cheapest_move(a, b, &best, &cost_a, &cost_b);
-		execute_move(a, b, cost_a, cost_b);
+		move = find_cheapest_move(a, b);
+		execute_move(a, b, move.cost_a, move.cost_b);
 	}
 	final_rotate(a);
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sort_small.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vokotera <vokotera@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/05 13:38:51 by vokotera          #+#    #+#             */
+/*   Updated: 2026/02/05 17:43:12 by vokotera         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../push_swap.h"
 
 void	sort_two(t_stack *a)
@@ -13,102 +25,102 @@ void	sort_three(t_stack *a)
 	tmp = a->top;
 	if (tmp->value > tmp->next->value && tmp->value < tmp->next->next->value)
 		sa(a);
-	else if(tmp->value < tmp->next->value && tmp->value > tmp->next->next->value)
+	else if (tmp->value < tmp->next->value
+		&& tmp->value > tmp->next->next->value)
 		rra(a);
-	else if(tmp->value > tmp->next->value && tmp->next->value > tmp->next->next->value)
+	else if (tmp->value > tmp->next->value
+		&& tmp->next->value > tmp->next->next->value)
 	{
 		sa(a);
 		rra(a);
 	}
-	else if(tmp->value > tmp->next->value && tmp->next->value < tmp->next->next->value)
+	else if (tmp->value > tmp->next->value
+		&& tmp->next->value < tmp->next->next->value)
 		ra(a);
-	else if(tmp->value < tmp->next->value && tmp->next->value > tmp->next->next->value)
+	else if (tmp->value < tmp->next->value
+		&& tmp->next->value > tmp->next->next->value)
 	{
 		sa(a);
 		ra(a);
 	}
 }
 
-int find_pos(t_stack *a)
+int	find_pos(t_stack *a)
 {
-    t_node *tmp;
-    int pos;
-    int min;
-    int min_pos;
+	t_node	*tmp;
+	int		pos;
+	int		min;
+	int		min_pos;
 
-    tmp = a->top;
-    pos = 0;
-    min = tmp->value;
-    min_pos = 0;
-    
-    while (tmp)
-    {
-        if (tmp->value < min)
-        {
-            min = tmp->value;
-            min_pos = pos;
-        }
-        tmp = tmp->next;
-        pos++;
-    }
-    return (min_pos);
+	tmp = a->top;
+	pos = 0;
+	min = tmp->value;
+	min_pos = 0;
+	while (tmp)
+	{
+		if (tmp->value < min)
+		{
+			min = tmp->value;
+			min_pos = pos;
+		}
+		tmp = tmp->next;
+		pos++;
+	}
+	return (min_pos);
 }
 
-
-void sort_four(t_stack *a, t_stack *b)
+void	sort_four(t_stack *a, t_stack *b)
 {
-    int min_pos;
-    int i;
-    
-    min_pos = find_pos(a);
-    i = 0;
-    
-    if (min_pos <= 2)  
-    {
-        while (i < min_pos)
-        {
-            ra(a);
-            i++;
-        }
-    }
-    else
-    {
-        while (i < (a->size - min_pos))
-        {
-            rra(a);
-            i++;
-        }
-    }
-    
-    pb(a, b);
-    sort_three(a);
-    pa(a, b);
+	int	min_pos;
+	int	i;
+
+	min_pos = find_pos(a);
+	i = 0;
+	if (min_pos <= 2)
+	{
+		while (i < min_pos)
+		{
+			ra(a);
+			i++;
+		}
+	}
+	else
+	{
+		while (i < (a->size - min_pos))
+		{
+			rra(a);
+			i++;
+		}
+	}
+	pb(a, b);
+	sort_three(a);
+	pa(a, b);
 }
 
-void    sort_five(t_stack *a, t_stack *b)
+void	sort_five(t_stack *a, t_stack *b)
 {
-    int     min_pos;
-    int     i;
+	int	min_pos;
+	int	i;
 
-    min_pos = find_pos(a);
-    i = 0;
-    if (min_pos <= 2)
-    {
-        while (i < min_pos)
-        {
-            ra(a);
-            i++;
-        }
-    }
-    else
-    {
-        while (i < (a->size - min_pos))
-        {
-            rra(a);
-            i++;
-        }
-    }
-    pb(a, b);
-    sort_four(a, b);
-    pa(a, b);
+	min_pos = find_pos(a);
+	i = 0;
+	if (min_pos <= 2)
+	{
+		while (i < min_pos)
+		{
+			ra(a);
+			i++;
+		}
+	}
+	else
+	{
+		while (i < (a->size - min_pos))
+		{
+			rra(a);
+			i++;
+		}
+	}
+	pb(a, b);
+	sort_four(a, b);
+	pa(a, b);
 }
