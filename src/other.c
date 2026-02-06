@@ -6,7 +6,7 @@
 /*   By: vokotera <vokotera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 13:37:39 by vokotera          #+#    #+#             */
-/*   Updated: 2026/02/06 11:11:28 by vokotera         ###   ########.fr       */
+/*   Updated: 2026/02/06 12:28:16 by vokotera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,27 +74,4 @@ long	ft_atol(const char *nptr)
 		i++;
 	}
 	return (result * sign);
-}
-
-void	check_duplicates(int argc, char *argv[])
-{
-	int	a;
-	int	b;
-
-	a = 1;
-	b = 0;
-	while (a < argc)
-	{
-		b = a + 1;
-		while (b < argc)
-		{
-			if (ft_atol(argv[a]) == ft_atol(argv[b]))
-			{
-				write(2, "Error\n", 6);
-				exit(1);
-			}
-			b++;
-		}
-		a++;
-	}
 }

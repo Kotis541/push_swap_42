@@ -6,7 +6,7 @@
 /*   By: vokotera <vokotera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 17:20:10 by vokotera          #+#    #+#             */
-/*   Updated: 2026/02/05 17:47:19 by vokotera         ###   ########.fr       */
+/*   Updated: 2026/02/06 12:28:56 by vokotera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,22 +43,17 @@ typedef struct s_move
 	int	cost_b;
 }	t_move;
 
-// Parsing & validation
-void	validate_and_parse(int argc, char *argv[], t_stack *stack_a);
+int		validate_and_parse(int argc, char *argv[], t_stack *stack_a);
 void	add_to_stack(t_stack *stack, long num);
 int		is_valid_number(char *str);
 long	ft_atol(const char *nptr);
 void	check_duplicates(int argc, char *argv[]);
 int		is_ordered(t_stack *stack_a);
-
-// Sorting functions
 void	sort_two(t_stack *a);
 void	sort_three(t_stack *a);
 void	sort_four(t_stack *a, t_stack *b);
 void	sort_five(t_stack *a, t_stack *b);
 int		find_pos(t_stack *a);
-
-// Stack operations
 void	sa(t_stack *a);
 void	sb(t_stack *b);
 void	ss(t_stack *a, t_stack *b);
@@ -70,10 +65,7 @@ void	rr(t_stack *a, t_stack *b);
 void	rra(t_stack *a);
 void	rrb(t_stack *b);
 void	rrr(t_stack *a, t_stack *b);
-
 void	turk_sort(t_stack *a, t_stack *b);
-
-//helper for turk
 void	single_rotate(t_stack *stack, int *cost,
 			void (*rot)(t_stack *), void (*rev)(t_stack *));
 void	double_rotate(t_stack *a, t_stack *b, int *cost_a, int *cost_b);
